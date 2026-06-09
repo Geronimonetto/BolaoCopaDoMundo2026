@@ -40,17 +40,22 @@ CSS = """
 
 :root{
   --ink:#0a1f17; --gold:#F2C84B; --grass:#0FA968;
-  --grass-dk:#0A7D4E; --line:rgba(255,255,255,.08);
+  --grass-dk:#0A7D4E; --line:rgba(255,255,255,.12);
+  --txt:#EAF2EC; --txt-mut:#9fb4a8;
 }
 html,body,[class*="css"]{ font-family:'Inter',sans-serif; }
 .stApp{
   background:
-    radial-gradient(1200px 600px at 15% -10%, rgba(15,169,104,.25), transparent 60%),
-    radial-gradient(900px 500px at 110% 10%, rgba(242,200,75,.18), transparent 55%),
+    radial-gradient(1200px 600px at 15% -10%, rgba(15,169,104,.30), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(242,200,75,.20), transparent 55%),
     linear-gradient(170deg,#06140e 0%,#0a2117 45%,#0b2a1c 100%);
 }
 .block-container{ padding-top:1rem; max-width:1280px; }
 #MainMenu, footer, header[data-testid="stHeader"]{ visibility:hidden; }
+
+/* texto padrão claro no fundo escuro */
+.stApp, .stMarkdown, .stMarkdown p, label, .stTextInput label, .stCaption,
+[data-testid="stWidgetLabel"] p, [data-testid="stMarkdownContainer"] p{ color:var(--txt) !important; }
 
 /* ---------- HERO ---------- */
 .hero{
@@ -94,25 +99,26 @@ html,body,[class*="css"]{ font-family:'Inter',sans-serif; }
 
 /* ---------- PANEL ---------- */
 .panel{
-  background:rgba(255,255,255,.97); border-radius:20px; padding:1.3rem 1.2rem;
-  margin-bottom:1rem; box-shadow:0 10px 30px rgba(0,0,0,.22); border:1px solid rgba(0,0,0,.04);
+  background:rgba(255,255,255,.06); border-radius:20px; padding:1.3rem 1.2rem;
+  margin-bottom:1rem; box-shadow:0 10px 30px rgba(0,0,0,.30); border:1px solid var(--line);
+  backdrop-filter:blur(6px);
 }
-.panel-title{ font-family:'Archivo',sans-serif; font-weight:700; color:var(--ink); font-size:1.25rem; margin:0 0 .2rem; }
-.panel-sub{ color:#5b6b63; font-size:.85rem; margin:0 0 1rem; }
+.panel-title{ font-family:'Archivo',sans-serif; font-weight:700; color:#fff; font-size:1.25rem; margin:0 0 .2rem; }
+.panel-sub{ color:var(--txt-mut); font-size:.85rem; margin:0 0 1rem; }
 
 /* ---------- GROUP CARD ---------- */
 .gcard{
-  background:#f6faf8; border:1px solid #e6ece9; border-radius:16px;
+  background:rgba(255,255,255,.05); border:1px solid var(--line); border-radius:16px;
   padding:.85rem .8rem .7rem; margin-bottom:.7rem; transition:.18s;
 }
-.gcard.ok{ border-color:var(--grass); box-shadow:inset 0 0 0 1px rgba(15,169,104,.25); background:#f1fbf5; }
+.gcard.ok{ border-color:var(--grass); box-shadow:inset 0 0 0 1px rgba(15,169,104,.35); background:rgba(15,169,104,.12); }
 .gtag{
-  display:inline-flex; align-items:center; gap:.4rem; background:var(--ink); color:#fff;
+  display:inline-flex; align-items:center; gap:.4rem; background:var(--grass); color:#04130c;
   font-family:'Archivo',sans-serif; font-weight:700; font-size:.74rem; letter-spacing:.1em;
   padding:.22rem .6rem; border-radius:8px; margin-bottom:.55rem;
 }
-.gres{ font-size:.76rem; color:#54635c; margin-top:.5rem; display:flex; gap:.8rem; }
-.gres b{ color:var(--ink); }
+.gres{ font-size:.78rem; color:var(--txt-mut); margin-top:.5rem; display:flex; gap:.8rem; }
+.gres b{ color:#fff; }
 
 /* ---------- TEAM TILE ---------- */
 .tile{ text-align:center; border-radius:13px; border:2px solid #e3e9e6; background:#fff; padding:.45rem .3rem .25rem; position:relative; }
@@ -131,19 +137,20 @@ div[data-testid="column"] .stButton>button:hover{ border-color:var(--grass); col
 
 /* ---------- BRACKET ---------- */
 .round-head{
-  font-family:'Archivo',sans-serif; font-weight:700; color:var(--ink); font-size:1rem;
+  font-family:'Archivo',sans-serif; font-weight:700; color:#fff; font-size:1rem;
   display:flex; align-items:center; gap:.5rem; margin:.2rem 0 .6rem;
 }
-.round-pill{ background:var(--grass); color:#fff; font-size:.66rem; font-weight:700; padding:.15rem .5rem; border-radius:999px; }
+.round-pill{ background:var(--grass); color:#04130c; font-size:.66rem; font-weight:700; padding:.15rem .5rem; border-radius:999px; }
 .round-head.live .round-pill{ background:var(--gold); color:#3a2d00; }
 .match{
-  background:#f6faf8; border:1px solid #e6ece9; border-radius:14px; padding:.7rem .7rem .5rem; margin-bottom:.6rem;
+  background:rgba(255,255,255,.05); border:1px solid var(--line); border-radius:14px; padding:.7rem .7rem .5rem; margin-bottom:.6rem;
 }
+.match .winner-name{ color:#fff; font-weight:700; }
 .bye{
-  display:inline-flex; align-items:center; gap:.4rem; background:#eaf4ff; color:#1763b6;
-  border:1px dashed #9cc4ef; padding:.35rem .7rem; border-radius:10px; font-size:.78rem; font-weight:600; margin-bottom:.5rem;
+  display:inline-flex; align-items:center; gap:.4rem; background:rgba(23,99,182,.18); color:#9cc4ef;
+  border:1px dashed #4d7fb5; padding:.35rem .7rem; border-radius:10px; font-size:.78rem; font-weight:600; margin-bottom:.5rem;
 }
-.vs{ text-align:center; color:#9aa8a1; font-weight:800; font-size:.8rem; padding-top:1.6rem; }
+.vs{ text-align:center; color:var(--txt-mut); font-weight:800; font-size:.8rem; padding-top:1.6rem; }
 .champion{
   margin-top:.8rem; border-radius:18px; padding:1.4rem; text-align:center; color:#3a2d00;
   background:linear-gradient(135deg,#FFE38A,#F2C84B 45%,#E1A21f);
