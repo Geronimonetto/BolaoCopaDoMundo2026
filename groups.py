@@ -1,84 +1,88 @@
-"""Dados estáticos dos grupos da Copa do Mundo 2026 (48 seleções, 12 grupos)."""
+"""Grupos oficiais — Copa do Mundo 2026."""
 
 GRUPOS: dict[str, list[dict[str, str]]] = {
     "A": [
-        {"nome": "Estados Unidos", "bandeira": "🇺🇸"},
-        {"nome": "México", "bandeira": "🇲🇽"},
-        {"nome": "Canadá", "bandeira": "🇨🇦"},
-        {"nome": "Equador", "bandeira": "🇪🇨"},
+        {"nome": "México", "codigo": "mx"},
+        {"nome": "África do Sul", "codigo": "za"},
+        {"nome": "República da Coreia", "codigo": "kr"},
+        {"nome": "Tchéquia", "codigo": "cz"},
     ],
     "B": [
-        {"nome": "Brasil", "bandeira": "🇧🇷"},
-        {"nome": "Marrocos", "bandeira": "🇲🇦"},
-        {"nome": "Croácia", "bandeira": "🇭🇷"},
-        {"nome": "Japão", "bandeira": "🇯🇵"},
+        {"nome": "Canadá", "codigo": "ca"},
+        {"nome": "Bósnia e Herzegovina", "codigo": "ba"},
+        {"nome": "Catar", "codigo": "qa"},
+        {"nome": "Suíça", "codigo": "ch"},
     ],
     "C": [
-        {"nome": "Argentina", "bandeira": "🇦🇷"},
-        {"nome": "França", "bandeira": "🇫🇷"},
-        {"nome": "Senegal", "bandeira": "🇸🇳"},
-        {"nome": "Austrália", "bandeira": "🇦🇺"},
+        {"nome": "Brasil", "codigo": "br"},
+        {"nome": "Marrocos", "codigo": "ma"},
+        {"nome": "Haiti", "codigo": "ht"},
+        {"nome": "Escócia", "codigo": "gb-sct"},
     ],
     "D": [
-        {"nome": "Inglaterra", "bandeira": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"},
-        {"nome": "Dinamarca", "bandeira": "🇩🇰"},
-        {"nome": "Colômbia", "bandeira": "🇨🇴"},
-        {"nome": "Costa Rica", "bandeira": "🇨🇷"},
+        {"nome": "EUA", "codigo": "us"},
+        {"nome": "Paraguai", "codigo": "py"},
+        {"nome": "Austrália", "codigo": "au"},
+        {"nome": "Turquia", "codigo": "tr"},
     ],
     "E": [
-        {"nome": "Alemanha", "bandeira": "🇩🇪"},
-        {"nome": "Espanha", "bandeira": "🇪🇸"},
-        {"nome": "Uruguai", "bandeira": "🇺🇾"},
-        {"nome": "Coreia do Sul", "bandeira": "🇰🇷"},
+        {"nome": "Alemanha", "codigo": "de"},
+        {"nome": "Curaçau", "codigo": "cw"},
+        {"nome": "Costa do Marfim", "codigo": "ci"},
+        {"nome": "Equador", "codigo": "ec"},
     ],
     "F": [
-        {"nome": "Portugal", "bandeira": "🇵🇹"},
-        {"nome": "Holanda", "bandeira": "🇳🇱"},
-        {"nome": "Suíça", "bandeira": "🇨🇭"},
-        {"nome": "Gana", "bandeira": "🇬🇭"},
+        {"nome": "Holanda", "codigo": "nl"},
+        {"nome": "Japão", "codigo": "jp"},
+        {"nome": "Suécia", "codigo": "se"},
+        {"nome": "Tunísia", "codigo": "tn"},
     ],
     "G": [
-        {"nome": "Bélgica", "bandeira": "🇧🇪"},
-        {"nome": "Itália", "bandeira": "🇮🇹"},
-        {"nome": "Chile", "bandeira": "🇨🇱"},
-        {"nome": "Nigéria", "bandeira": "🇳🇬"},
+        {"nome": "Bélgica", "codigo": "be"},
+        {"nome": "Egito", "codigo": "eg"},
+        {"nome": "RI do Irã", "codigo": "ir"},
+        {"nome": "Nova Zelândia", "codigo": "nz"},
     ],
     "H": [
-        {"nome": "Polônia", "bandeira": "🇵🇱"},
-        {"nome": "Suécia", "bandeira": "🇸🇪"},
-        {"nome": "Peru", "bandeira": "🇵🇪"},
-        {"nome": "Irã", "bandeira": "🇮🇷"},
+        {"nome": "Espanha", "codigo": "es"},
+        {"nome": "Cabo Verde", "codigo": "cv"},
+        {"nome": "Arábia Saudita", "codigo": "sa"},
+        {"nome": "Uruguai", "codigo": "uy"},
     ],
     "I": [
-        {"nome": "Ucrânia", "bandeira": "🇺🇦"},
-        {"nome": "Sérvia", "bandeira": "🇷🇸"},
-        {"nome": "Paraguai", "bandeira": "🇵🇾"},
-        {"nome": "Camarões", "bandeira": "🇨🇲"},
+        {"nome": "França", "codigo": "fr"},
+        {"nome": "Senegal", "codigo": "sn"},
+        {"nome": "Iraque", "codigo": "iq"},
+        {"nome": "Noruega", "codigo": "no"},
     ],
     "J": [
-        {"nome": "Turquia", "bandeira": "🇹🇷"},
-        {"nome": "Áustria", "bandeira": "🇦🇹"},
-        {"nome": "Egito", "bandeira": "🇪🇬"},
-        {"nome": "Panamá", "bandeira": "🇵🇦"},
+        {"nome": "Argentina", "codigo": "ar"},
+        {"nome": "Argélia", "codigo": "dz"},
+        {"nome": "Áustria", "codigo": "at"},
+        {"nome": "Jordânia", "codigo": "jo"},
     ],
     "K": [
-        {"nome": "Escócia", "bandeira": "🏴󠁧󠁢󠁳󠁣󠁴󠁿"},
-        {"nome": "Noruega", "bandeira": "🇳🇴"},
-        {"nome": "Argélia", "bandeira": "🇩🇿"},
-        {"nome": "Jamaica", "bandeira": "🇯🇲"},
+        {"nome": "Portugal", "codigo": "pt"},
+        {"nome": "RD do Congo", "codigo": "cd"},
+        {"nome": "Uzbequistão", "codigo": "uz"},
+        {"nome": "Colômbia", "codigo": "co"},
     ],
     "L": [
-        {"nome": "Catar", "bandeira": "🇶🇦"},
-        {"nome": "Tunísia", "bandeira": "🇹🇳"},
-        {"nome": "Venezuela", "bandeira": "🇻🇪"},
-        {"nome": "Nova Zelândia", "bandeira": "🇳🇿"},
+        {"nome": "Inglaterra", "codigo": "gb-eng"},
+        {"nome": "Croácia", "codigo": "hr"},
+        {"nome": "Gana", "codigo": "gh"},
+        {"nome": "Panamá", "codigo": "pa"},
     ],
 }
 
+TEAM_INDEX: dict[str, dict[str, str]] = {
+    team["nome"]: team for teams in GRUPOS.values() for team in teams
+}
 
-def label_time(time: dict[str, str]) -> str:
-    return f"{time['bandeira']} {time['nome']}"
+
+def flag_url(codigo: str) -> str:
+    return f"https://flagcdn.com/w80/{codigo.lower()}.png"
 
 
-def opcoes_grupo(grupo: str) -> list[str]:
-    return [label_time(t) for t in GRUPOS[grupo]]
+def get_team(nome: str) -> dict[str, str] | None:
+    return TEAM_INDEX.get(nome)

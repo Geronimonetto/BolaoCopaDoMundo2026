@@ -34,8 +34,19 @@ def init_db() -> None:
                 segundo TEXT NOT NULL,
                 FOREIGN KEY (participante_id) REFERENCES participantes(id)
             );
+
+            CREATE TABLE IF NOT EXISTS mata_mata (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                participante_id INTEGER NOT NULL,
+                jogo_key TEXT NOT NULL,
+                vencedor TEXT NOT NULL,
+                FOREIGN KEY (participante_id) REFERENCES participantes(id)
+            );
             """
         )
+        cols = conn.execute("PRAGMA table_info(participantes)").fetchall()
+        if not any(c[1] == "campeao" for c in cols):
+            conn.execute("ALTER TABLE participantes ADD COLUMN campeao TEXT")
 
 
 def email_existe(email: str) -> bool:
@@ -52,15 +63,17 @@ def salvar_participacao(
     telefone: str,
     email: str,
     apostas: list[dict[str, str]],
+    mata_mata: dict[str, str] | None = None,
+    campeao: str | None = None,
 ) -> int:
     criado_em = datetime.now(timezone.utc).isoformat()
     with get_connection() as conn:
         cursor = conn.execute(
             """
-            INSERT INTO participantes (nome, telefone, email, criado_em)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO participantes (nome, telefone, email, criado_em, campeao)
+            VALUES (?, ?, ?, ?, ?)
             """,
-            (nome.strip(), telefone.strip(), email.strip().lower(), criado_em),
+            (nome.strip(), telefone.strip(), email.strip().lower(), criado_em, campeao),
         )
         participante_id = cursor.lastrowid
         conn.executemany(
@@ -73,6 +86,14 @@ def salvar_participacao(
                 for a in apostas
             ],
         )
+        if mata_mata:
+            conn.executemany(
+                """
+                INSERT INTO mata_mata (participante_id, jogo_key, vencedor)
+                VALUES (?, ?, ?)
+                """,
+                [(participante_id, k, v) for k, v in mata_mata.items()],
+            )
         conn.commit()
     return participante_id
 
@@ -81,7 +102,7 @@ def listar_participantes() -> list[dict]:
     with get_connection() as conn:
         rows = conn.execute(
             """
-            SELECT id, nome, telefone, email, criado_em
+            SELECT id, nome, telefone, email, criado_em, campeao
             FROM participantes
             ORDER BY criado_em DESC
             """
