@@ -120,20 +120,32 @@ html,body,[class*="css"]{ font-family:'Inter',sans-serif; }
 .gres{ font-size:.78rem; color:var(--txt-mut); margin-top:.5rem; display:flex; gap:.8rem; }
 .gres b{ color:#fff; }
 
-/* ---------- TEAM TILE ---------- */
-.tile{ text-align:center; border-radius:13px; border:2px solid #e3e9e6; background:#fff; padding:.45rem .3rem .25rem; position:relative; }
-.tile.t1{ border-color:var(--gold); background:linear-gradient(180deg,#FFFaE9,#fff); }
-.tile.t2{ border-color:#9fb2c9; background:linear-gradient(180deg,#eef3f8,#fff); }
-.mk{ position:absolute; top:-9px; left:50%; transform:translateX(-50%); font-size:.6rem; font-weight:800; padding:.06rem .4rem; border-radius:999px; box-shadow:0 2px 6px rgba(0,0,0,.15); }
-.mk.m1{ background:var(--gold); color:#5a4500; }
-.mk.m2{ background:#9fb2c9; color:#1e2b3a; }
+/* ---------- TEAM FLAG BOX (uniforme) ---------- */
+.flagbox{
+  position:relative; height:48px; display:flex; align-items:center; justify-content:center;
+  border-radius:11px; border:2px solid var(--line); background:rgba(255,255,255,.06);
+  margin-bottom:.32rem;
+}
+.flagbox.b1{ border-color:var(--gold); background:rgba(242,200,75,.16); }
+.flagbox.b2{ border-color:#9fb2c9; background:rgba(159,178,201,.16); }
+.flagbox .flag{
+  width:42px; height:28px; object-fit:cover; border-radius:4px;
+  box-shadow:0 1px 5px rgba(0,0,0,.45); display:block;
+}
+.flagbox .mk{
+  position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+  font-size:.6rem; font-weight:800; padding:.06rem .42rem; border-radius:999px;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
+}
+.flagbox .mk.m1{ background:var(--gold); color:#5a4500; }
+.flagbox .mk.m2{ background:#9fb2c9; color:#1e2b3a; }
 
 /* small buttons inside grid columns */
 div[data-testid="column"] .stButton>button{
   font-size:.72rem; font-weight:600; border-radius:9px; min-height:2.05rem; line-height:1.12;
-  white-space:normal; border:1px solid #dde3e0; background:#fff; color:#1d2a24;
+  white-space:normal; border:1px solid var(--line); background:rgba(255,255,255,.05); color:var(--txt);
 }
-div[data-testid="column"] .stButton>button:hover{ border-color:var(--grass); color:var(--grass-dk); }
+div[data-testid="column"] .stButton>button:hover{ border-color:var(--grass); color:#fff; }
 
 /* ---------- BRACKET ---------- */
 .round-head{
@@ -255,13 +267,20 @@ def render_steps() -> None:
 def render_tile(grupo: str, time: dict[str, str]) -> None:
     nome = time["nome"]
     slot = slot_time(grupo, nome)
-    cls = f"tile t{slot}" if slot else "tile"
+    cls = f"flagbox b{slot}" if slot else "flagbox"
     mk = '<span class="mk m1">1º</span>' if slot == 1 else ('<span class="mk m2">2º</span>' if slot == 2 else "")
-    st.markdown(f'<div class="{cls}">{mk}', unsafe_allow_html=True)
-    st.image(flag_url(time["codigo"]), width=46)
-    st.button(nome, key=f"btn_{grupo}_{time['codigo']}", on_click=clicar_time,
-              args=(grupo, nome), use_container_width=True)
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="{cls}">{mk}<img class="flag" src="{flag_url(time["codigo"])}"></div>',
+        unsafe_allow_html=True,
+    )
+    st.button(
+        nome,
+        key=f"btn_{grupo}_{time['codigo']}",
+        on_click=clicar_time,
+        args=(grupo, nome),
+        use_container_width=True,
+        type="primary" if slot else "secondary",
+    )
 
 
 def render_grupo(grupo: str) -> None:
@@ -290,16 +309,20 @@ def render_match(jogo: dict, editavel: bool) -> None:
         with col:
             team = get_team(nome)
             if team:
-                st.image(flag_url(team["codigo"]), width=38)
-            wrap = "winner" if venc == nome else ""
-            st.markdown(f'<div class="{wrap}">', unsafe_allow_html=True)
+                st.markdown(
+                    f'<div class="flagbox" style="margin-bottom:.3rem">'
+                    f'<img class="flag" src="{flag_url(team["codigo"])}"></div>',
+                    unsafe_allow_html=True,
+                )
             if editavel:
+                st.markdown('<div class="winner">' if venc == nome else "<div>", unsafe_allow_html=True)
                 st.button(nome, key=f"win_{key}_{side}", on_click=escolher_vencedor,
                           args=(key, nome), use_container_width=True,
                           type="primary" if venc == nome else "secondary")
+                st.markdown("</div>", unsafe_allow_html=True)
             else:
-                st.markdown(f"**{nome}**" + (" 🏆" if venc == nome else ""))
-            st.markdown("</div>", unsafe_allow_html=True)
+                tag = " 🏆" if venc == nome else ""
+                st.markdown(f'<div class="winner-name">{nome}{tag}</div>', unsafe_allow_html=True)
     with mid:
         st.markdown('<div class="vs">VS</div>', unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
